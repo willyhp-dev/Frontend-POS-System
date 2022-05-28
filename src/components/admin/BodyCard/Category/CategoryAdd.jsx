@@ -1,16 +1,26 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBackspace, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
 import swal from "sweetalert";
-import { Button, Col, Form, FormControl, Row } from "react-bootstrap";
-
+import {
+  Button,
+  Col,
+  Form,
+  FormControl,
+  Row,
+  Card,
+  Spinner,
+} from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 export default function CategoryAdd() {
   const [name, setname] = useState();
+  const [loading, setloading] = useState();
   const currentUser = JSON.parse(localStorage.getItem("user"));
-
+  const Navigate = useNavigate();
   const CategoryForm = async (e) => {
     e.preventDefault();
+    setloading(true);
     await axios
       .post(
         "http://localhost:4000/api/category/store",
@@ -22,11 +32,10 @@ export default function CategoryAdd() {
         }
       )
       .then((result) => {
+        setloading(false);
+        Navigate("/category");
         swal("Sukses", "You Did Add Category Data", "success");
-        const refresh = () => {
-          window.location.reload();
-        };
-        setInterval(refresh, 3000);
+
         return result;
       })
       .catch((error) => {
@@ -36,29 +45,58 @@ export default function CategoryAdd() {
   };
   return (
     <div>
-      <Form onSubmit={CategoryForm}>
-        <Row>
-          <Col sm>
-            {" "}
-            <FormControl
-              placeholder="Example : Utama"
-              id="name"
-              name="name"
-              onChange={(e) => setname(e.target.value)}
-              value={name}
-            />
-          </Col>
-          <Col sm>
-            <Button type="submit" className="btn btn-sm">
-              <FontAwesomeIcon icon={faPlus} /> Add
-            </Button>
-          </Col>
+      <Card className="mt-3">
+        <Card.Header className="bg-primary text-white">
+          {" "}
+          Add Category
+        </Card.Header>
+        <Form onSubmit={CategoryForm}>
+          <Card.Body>
+            <Row>
+              <Col sm>
+                {" "}
+                <FormControl
+                  placeholder="Example : Utama"
+                  id="name"
+                  name="name"
+                  className="w-50"
+                  onChange={(e) => setname(e.target.value)}
+                  value={name}
+                />
+              </Col>
+              <Col sm></Col>
 
-          {/* <div className="float-right">
+              {/* <div className="float-right">
               <FormControl  placeholder="Search Tag..." />
             </div> */}
-        </Row>
-      </Form>
+            </Row>
+          </Card.Body>
+          <Card.Footer>
+            {loading ? (
+              <Button variant="primary" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Loading...
+              </Button>
+            ) : (
+              <Button type="submit" className="btn btn-sm">
+                <FontAwesomeIcon icon={faPlus} /> Add
+              </Button>
+            )}
+            <Link to="/category">
+              <Button className="btn btn-secondary btn-sm ml-2">
+                <FontAwesomeIcon icon={faBackspace }/> Back
+              </Button>
+            </Link>
+
+          </Card.Footer>
+        </Form>
+      </Card>
     </div>
   );
 }

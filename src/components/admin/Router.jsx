@@ -8,9 +8,17 @@ import AddressAdd from "./BodyCard/DeliveryAdress/Address/AddressAdd";
 import AddressDetail from "./BodyCard/DeliveryAdress/Address/AddressDetail";
 import AddressEdit from "./BodyCard/DeliveryAdress/Address/AddressEdit";
 import KabupatenPage from "./BodyCard/DeliveryAdress/kabupaten/kabupaten";
+import KabupatenAdd from "./BodyCard/DeliveryAdress/kabupaten/kabupatenAdd";
+import KabupatenEdit from "./BodyCard/DeliveryAdress/kabupaten/kabupatenEdit";
 import KecamatanPage from "./BodyCard/DeliveryAdress/kecamatan/kecamatan";
+import KecamatanAdd from "./BodyCard/DeliveryAdress/kecamatan/kecamatanAdd";
+import KecamatanEdit from "./BodyCard/DeliveryAdress/kecamatan/kecamatanEdit";
 import KeluarahanPage from "./BodyCard/DeliveryAdress/Kelurahan/kelurahan";
+import KelurahanAdd from "./BodyCard/DeliveryAdress/Kelurahan/kelurahanAdd";
+import KelurahanEdit from "./BodyCard/DeliveryAdress/Kelurahan/kelurahanEdit";
 import ProvinsiPage from "./BodyCard/DeliveryAdress/provinsi/provinsi";
+import ProvinsiAdd from "./BodyCard/DeliveryAdress/provinsi/provinsiAdd";
+import ProvinsiEdit from "./BodyCard/DeliveryAdress/provinsi/provinsiEdit";
 import InvoicePage from "./BodyCard/Invoice";
 import PageLogin from "./BodyCard/LoginRegister";
 import RegisterPage from "./BodyCard/LoginRegister/Register";
@@ -73,9 +81,30 @@ export default function RouterPage() {
           <Route path="/address/edit/:id" element={<AddressEdit />} />
           <Route path="/address/detail/:id" element={<AddressDetail />} />
           <Route path="/address/kabupaten" element={<KabupatenPage />} />
+          <Route path="/address/kabupaten/store" element={<KabupatenAdd />} />
+          <Route
+            path="/address/kabupaten/update/:id"
+            element={<KabupatenEdit />}
+          />
+
           <Route path="/address/kelurahan" element={<KeluarahanPage />} />
+          <Route path="/address/kelurahan/store" element={<KelurahanAdd />} />
+          <Route
+            path="/address/kelurahan/update/:id"
+            element={<KelurahanEdit />}
+          />
           <Route path="/address/kecamatan" element={<KecamatanPage />} />
+          <Route path="/address/kecamatan/store" element={<KecamatanAdd />} />
+          <Route
+            path="/address/kecamatan/update/:id"
+            element={<KecamatanEdit />}
+          />
           <Route path="/address/provinsi" element={<ProvinsiPage />} />
+          <Route path="/address/provinsi/store" element={<ProvinsiAdd />} />
+          <Route
+            path="/address/provinsi/update/:id"
+            element={<ProvinsiEdit />}
+          />
         </Routes>
       )}
     </div>

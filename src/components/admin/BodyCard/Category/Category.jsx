@@ -1,4 +1,4 @@
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
@@ -47,46 +47,7 @@ export default function CategoryPage() {
       {numbers}
     </li>
   ));
-  //-------------------Delete Data Axios--------------------------//
-  const AxiosDelete = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover This Category Data!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        try {
-          setloading(true);
-          const currentUser = JSON.parse(localStorage.getItem("user"));
-          await axios.delete(
-            `http://localhost:4000/api/category/delete/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${currentUser.token}`,
-              },
-            }
-          );
-          setloading(false);
-          const Refresh = () => {
-            window.location.reload();
-          };
-          setInterval(Refresh, 3000);
-          swal("Success", "Congrate Deleted Category Data", {
-            icon: "success",
-          });
-        } catch (error) {
-          swal("Error", "Something Wrong", {
-            icon: "error",
-          });
-        }
-      } else {
-        setloading(false);
-        swal("Your Category Data is safe!");
-      }
-    });
-  };
+
   //--------------------GetDATA Axios------------------//
   const AxiosData = useCallback(async (value) => {
     setloading(true);
@@ -113,6 +74,44 @@ export default function CategoryPage() {
   useEffect(() => {
     AxiosData();
   }, [AxiosData]);
+
+    //-------------------Delete Data Axios--------------------------//
+    const AxiosDelete = (id) => {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover This Category Data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(async (willDelete) => {
+        if (willDelete) {
+          try {
+            setloading(true);
+            const currentUser = JSON.parse(localStorage.getItem("user"));
+            await axios.delete(
+              `http://localhost:4000/api/category/delete/${id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${currentUser.token}`,
+                },
+              }
+            );
+            setloading(false);
+          
+            swal("Success", "Congrate Deleted Category Data", {
+              icon: "success",
+            });
+          } catch (error) {
+            swal("Error", "Something Wrong", {
+              icon: "error",
+            });
+          }
+        } else {
+          setloading(false);
+          swal("Your Category Data is safe!");
+        }
+      }).then(() => AxiosData());
+    };
   
   const Tbody = () => {
     return (
@@ -155,7 +154,11 @@ export default function CategoryPage() {
           <Row>
             <Col sm>
               {" "}
-              <CategoryAdd />
+              <Link to="/category/store">
+                <Button className ="btn btn-primary">
+                  <FontAwesomeIcon icon={ faPlus}/> Add
+                </Button>
+             </Link>
             </Col>
             <Col sm>
               <div className="float-right">

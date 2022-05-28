@@ -1,18 +1,35 @@
 import { faBars, faPowerOff, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Button, Card, Col, Container, Navbar, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  Navbar,
+  Row,
+} from "react-bootstrap";
 import "./index.css";
 import RouterPage from "./Router";
 import SidebarPage from "./SideBar/SideBar";
 import swal from "sweetalert";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import PageLogin from "./BodyCard/LoginRegister";
+import RegisterPage from "./BodyCard/LoginRegister/Register";
 
 export default function AdminPage() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [showR, setShowR] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleCloses = () => setShowR(false);
+  const handleShows = () => setShowR(true);
   const Logout = () => {
     swal({
       title: "Are you sure?",
@@ -23,24 +40,27 @@ export default function AdminPage() {
     }).then(async (willDelete) => {
       if (willDelete) {
         const url = "http://localhost:4000/api/auth/logout";
-    
-        await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${currentUser.token}`
-          }
-        }).then(result => {
-          localStorage.removeItem("user");
-          swal(`Akun Anda Berhasil LogOut`, {
-            icon: "success",
+
+        await axios
+          .get(url, {
+            headers: {
+              Authorization: `Bearer ${currentUser.token}`,
+            },
+          })
+          .then((result) => {
+            localStorage.removeItem("user");
+            swal(`Akun Anda Berhasil LogOut`, {
+              icon: "success",
+            });
+            navigate("/");
+
+            return result;
+          })
+          .catch((error) => {
+            swal(error.message, {
+              icon: "error",
+            });
           });
-          navigate("/")
-         
-          return result;
-        }).catch(error => {
-          swal(error.message, {
-            icon: "error",
-          });
-        });
       } else {
         swal("Your imaginary file is safe!");
       }
@@ -56,16 +76,37 @@ export default function AdminPage() {
           <Navbar.Brand>
             {currentUser === null ? (
               <div>
-                <Link to="/login">
-                  <Button className="btn btn-primary btn-sm">
-                    <FontAwesomeIcon icon={faUser} /> LOGIN
-                  </Button>
-                </Link>
-                <Link to="/Register">
-                  <Button className="btn btn-primary btn-sm ml-3">
-                    <FontAwesomeIcon icon={faUser} /> REGISTER
-                  </Button>
-                </Link>
+                <Button
+                  variant="primary"
+                  className="btn btn-sm"
+                  onClick={handleShow}
+                >
+                  <FontAwesomeIcon icon={faUser} /> Login
+                </Button>
+
+                <Modal show={show} onHide={handleClose} animation={false}>
+                  <Modal.Header>
+                    <Modal.Title>Login Page</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <PageLogin />
+                  </Modal.Body>
+                </Modal>
+                <Button
+                  variant="primary"
+                  className="btn btn-sm ml-2"
+                  onClick={handleShows}
+                >
+                  <FontAwesomeIcon icon={faUser} /> Register
+                </Button>
+                <Modal show={showR} onHide={handleCloses} animation={false}>
+                  <Modal.Header>
+                    <Modal.Title>Register Form</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                   <RegisterPage/>
+                  </Modal.Body>
+                </Modal>
               </div>
             ) : (
               <Button className="btn btn-danger btn-sm" onClick={Logout}>

@@ -106,7 +106,7 @@ export default function CategoryEdit() {
 
             <Link to="/category">
               <Button className="btn btn-secondary btn-sm ml-2">
-                <FontAwesomeIcon icon={faBackspace} /> Kembali
+                <FontAwesomeIcon icon={faBackspace} /> Back
               </Button>
             </Link>
           </Card.Footer>

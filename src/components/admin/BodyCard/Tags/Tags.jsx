@@ -1,4 +1,4 @@
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
@@ -8,12 +8,11 @@ import {
   Col,
   FormControl,
   Row,
-  Spinner,
   Table,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import TagAdd from "./TagAdd";
+import { Spinners, Thead, LengthNull } from "./CustomHook";
 
 export default function TagPage() {
   const [tags, settags] = useState([]);
@@ -24,7 +23,9 @@ export default function TagPage() {
   const indexofLastItem = currentPage * itemPerPage;
   const indexofFirstItem = indexofLastItem - itemPerPage;
   const currentItem = tags.slice(indexofFirstItem, indexofLastItem);
+
   let items = [];
+
   for (
     let number = 1;
     number <= Math.ceil(tags.length / itemPerPage);
@@ -32,9 +33,11 @@ export default function TagPage() {
   ) {
     items.push(number);
   }
+
   const handleClick = (event) => {
     setcurrentPage(Number(event.target.id));
   };
+
   const paginations = items.map((numbers) => (
     <li
       className={`btn btn-outline-primary btn-sm mr-1 ${
@@ -47,37 +50,9 @@ export default function TagPage() {
       {numbers}
     </li>
   ));
-  const AxiosDelete = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        try {
-          setloading(true);
-          const currentUser = JSON.parse(localStorage.getItem("user"));
-          const url = `http://localhost:4000/api/tag/${id}`;
-          await axios.delete(url, {
-            headers: {
-              Authorization: ` Bearer ${currentUser}`,
-            },
-          });
-          setloading(false);
-          swal("Congrate you deleted Tag Data", {
-            icon: "success",
-          });
-        } catch (error) {
-          setloading(false);
-          swal("Error", error.message, "error");
-        }
-      } else {
-        swal("Your imaginary file is safe!");
-      }
-    });
-  };
+
+ 
+
   const AxiosData = useCallback(async (value) => {
     try {
       setloading(true);
@@ -92,7 +67,7 @@ export default function TagPage() {
         },
       });
       setloading(false);
-      setTimeout(2000);
+      setInterval(2000);
       settags(response.data);
     } catch (error) {
       setloading(false);
@@ -103,43 +78,13 @@ export default function TagPage() {
     AxiosData();
   }, [AxiosData]);
 
-  const Thead = () => {
-    return (
-      <thead>
-        <tr>
-          <th width="5%">No</th>
-          <th>Name Tag</th>
-          <th width="15%">Action</th>
-        </tr>
-      </thead>
-    );
-  };
   const Tbody = () => {
     return (
       <tbody>
         {loading ? (
-          <tr>
-            <td colSpan={3}>
-              <Button className="btn btn-secondary w-100" disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                Loading...
-              </Button>
-            </td>
-          </tr>
+          <Spinners />
         ) : currentItem.length === 0 ? (
-          <tr>
-            <td colSpan={3}>
-              <div className="alert alert-danger">
-                <center>Data Empty / Data Not Response</center>
-              </div>
-            </td>
-          </tr>
+          <LengthNull />
         ) : (
           currentItem.map((item, index) => (
             <tr>
@@ -152,7 +97,8 @@ export default function TagPage() {
                   </Button>
                 </Link>
                 <Button
-                  onClick={() => AxiosDelete(item._id)}
+                  type="submit"
+                  onClick={() => AxiosDeletes(item._id)}
                   className="btn btn-danger btn-sm ml-2"
                 >
                   <FontAwesomeIcon icon={faTrash} />
@@ -164,6 +110,40 @@ export default function TagPage() {
       </tbody>
     );
   };
+  const AxiosDeletes = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then(async (willDelete) => {
+        if (willDelete) {
+          try {
+            setloading(true);
+            const currentUser = JSON.parse(localStorage.getItem("user"));
+            let url = `http://localhost:4000/api/tag/delete/${id}`;
+            await axios.delete(url, {
+              headers: {
+                Authorization: `Bearer ${currentUser.token}`,
+              },
+            });
+            setloading(false);
+            swal("Congrate you deleted Tag Data", {
+              icon: "success",
+            });
+          } catch (error) {
+            setloading(false);
+            swal("Error", error.message, "error");
+          }
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      })
+      .then(() => AxiosData());
+  };
+
   return (
     <div>
       <Card className="mt-3">
@@ -171,15 +151,19 @@ export default function TagPage() {
           <Row>
             <Col sm>
               {" "}
-              <TagAdd />
+              <Link to="/tag/store">
+                <Button className="btn btn-sm">
+                  <FontAwesomeIcon icon={faPlus} /> Add
+                </Button>
+              </Link>
             </Col>
             <Col sm>
-              <div className="float-right">
-                <FormControl
-                  placeholder="Search Tag..."
-                  onChange={(e) => AxiosData(e.target.value)}
-                />
-              </div>
+            <div className="float-right">
+        <FormControl
+          placeholder="Search Tag..."
+          onChange={(e) => AxiosData(e.target.value)}
+        />
+      </div>
             </Col>
           </Row>
         </Card.Header>
