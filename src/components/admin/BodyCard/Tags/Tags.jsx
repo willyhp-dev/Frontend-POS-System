@@ -68,7 +68,7 @@ export default function TagPage() {
       });
       setloading(false);
       setInterval(2000);
-      settags(response.data);
+      settags(response.data.data);
     } catch (error) {
       setloading(false);
       console.log(error);

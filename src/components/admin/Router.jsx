@@ -26,10 +26,12 @@ import CartPage from "./BodyCard/menu/Cart";
 import CheckoutPage from "./BodyCard/menu/CheckOut";
 import MenuPage from "./BodyCard/menu/Index";
 import InvoiceFormPage from "./BodyCard/menu/InvoiceForm";
+import CategoryProduct from "./BodyCard/Product/category";
 import ProductPage from "./BodyCard/Product/Product";
 import ProductAdd from "./BodyCard/Product/ProductAdd";
 import ProductDetail from "./BodyCard/Product/ProductDetail";
 import ProductEdit from "./BodyCard/Product/ProductEdit";
+import TagProduct from "./BodyCard/Product/Tags";
 import TagAdd from "./BodyCard/Tags/TagAdd";
 import TagPage from "./BodyCard/Tags/Tags";
 import TagDetail from "./BodyCard/Tags/TagsDetail";
@@ -51,9 +53,7 @@ export default function RouterPage() {
         </Routes>
       ) : currentUser.user.role === "user" ? (
         <Routes>
-          <Route path="/" element={<DashboardPage />}>
-            Dashboard
-          </Route>
+          
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />
@@ -69,6 +69,8 @@ export default function RouterPage() {
           <Route path="/product/store" element={<ProductAdd />} />
           <Route path="/product/edit/:id" element={<ProductEdit />} />
           <Route path="/product/detail/:id" element={<ProductDetail />} />
+          <Route path="/product/tag/:id" element={<TagProduct />} />
+          <Route path="/product/category/:id" element={<CategoryProduct />} />
           <Route path="/tag" element={<TagPage />} />
           <Route path="/tag/store" element={<TagAdd />} />
           <Route path="/tag/edit/:id" element={<TagEdit />} />
@@ -82,6 +84,11 @@ export default function RouterPage() {
           <Route path="/address/detail/:id" element={<AddressDetail />} />
           <Route path="/address/kabupaten" element={<KabupatenPage />} />
           <Route path="/address/kabupaten/store" element={<KabupatenAdd />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/Invoice" element={<InvoicePage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/InvoiceForm" element={<InvoiceFormPage />} />
           <Route
             path="/address/kabupaten/update/:id"
             element={<KabupatenEdit />}

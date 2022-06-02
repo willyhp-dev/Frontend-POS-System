@@ -20,7 +20,6 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 export default function KabupatenPage() {
-  const [open, setopen] = useState();
   const [loading, setloading] = useState(false);
   const [kabupaten, setkabupaten] = useState([]);
   const [currentPage, setcurrentPage] = useState(1);

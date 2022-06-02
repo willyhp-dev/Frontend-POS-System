@@ -43,7 +43,7 @@ export default function KabupatenAdd() {
   };
   return (
     <div>
-      <Card>
+      <Card className ="mt-3">
         <Card.Header className="bg-primary text-white">
           Add Kabupaten
         </Card.Header>

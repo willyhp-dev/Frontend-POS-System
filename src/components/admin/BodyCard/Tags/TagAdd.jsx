@@ -44,7 +44,7 @@ export default function TagAdd() {
   };
   return (
     <div>
-      <Card>
+      <Card className="mt-3">
         <Card.Header className="bg-primary text-white">Add Tag</Card.Header>
         <Form onSubmit={AxiosAdd}>
           <Card.Body>

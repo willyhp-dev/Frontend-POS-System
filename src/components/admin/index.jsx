@@ -9,6 +9,7 @@ import {
   Modal,
   Navbar,
   Row,
+  Spinner,
 } from "react-bootstrap";
 import "./index.css";
 import RouterPage from "./Router";
@@ -25,11 +26,13 @@ export default function AdminPage() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [showR, setShowR] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloses = () => setShowR(false);
   const handleShows = () => setShowR(true);
+
+  const [loading, setloading] = useState(false);
+
   const Logout = () => {
     swal({
       title: "Are you sure?",
@@ -39,6 +42,7 @@ export default function AdminPage() {
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
+        setloading(true);
         const url = "http://localhost:4000/api/auth/logout";
 
         await axios
@@ -49,20 +53,22 @@ export default function AdminPage() {
           })
           .then((result) => {
             localStorage.removeItem("user");
+            setloading(false);
             swal(`Akun Anda Berhasil LogOut`, {
               icon: "success",
             });
-            navigate("/");
 
+            navigate("/");
             return result;
           })
           .catch((error) => {
+            setloading(false);
             swal(error.message, {
               icon: "error",
             });
           });
       } else {
-        swal("Your imaginary file is safe!");
+        swal("OK");
       }
     });
   };
@@ -104,10 +110,21 @@ export default function AdminPage() {
                     <Modal.Title>Register Form</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                   <RegisterPage/>
+                    <RegisterPage />
                   </Modal.Body>
                 </Modal>
               </div>
+            ) : loading ? (
+              <Button className="btn btn-danger btn-sm" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Loading...
+              </Button>
             ) : (
               <Button className="btn btn-danger btn-sm" onClick={Logout}>
                 <FontAwesomeIcon icon={faPowerOff} /> LOGOUT

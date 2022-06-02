@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import CategoryAdd from "./CategoryAdd";
+
 
 export default function CategoryPage() {
   const [category, setCategory] = useState([]);
@@ -64,7 +64,7 @@ export default function CategoryPage() {
       })
       .then((response) => {
         setloading(false);
-        setCategory(response.data);
+        setCategory(response.data.data);
       })
       .catch((error) => {
         setloading(false);

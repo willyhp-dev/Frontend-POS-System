@@ -44,7 +44,7 @@ export default function KecamatanAdd() {
 
   return (
     <div>
-      <Card>
+      <Card className ="mt-3">
         <Card.Header className="bg-primary text-white">
           {" "}
           Add Kecamatan
