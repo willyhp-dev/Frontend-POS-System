@@ -14,13 +14,19 @@ import "./index.css";
 export default function CheckoutPage() {
   const [loading, setloading] = useState(false);
   const [loadingDetail, setloadingDetail] = useState(false);
+  const [loadingCheckOut, setloadingCheckOut] = useState(false);
   const [alamat, setalamat] = useState([]);
   const [alamatdetail, setalamatdetail] = useState([]);
   const [alamatform, setalamatform] = useState();
   const [cart, setcart] = useState([]);
   const [show, setShow] = useState(false);
-  const [hasil, sethasil] = useState([]);
-  console.log(hasil);
+  const deliveryFee = 20000;
+
+  let total = 0;
+  cart.forEach((element) => {
+    const hasil = element.product.price * element.qty;
+    total += hasil;
+  });
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
@@ -54,7 +60,7 @@ export default function CheckoutPage() {
       >
         <option value="">--pilih Alamat---</option>
         {alamat.map((item) => (
-          <option value={item.name}>
+          <option value={item._id}>
             <p>{item.name}</p> {""}
           </option>
         ))}
@@ -62,19 +68,20 @@ export default function CheckoutPage() {
     );
   };
 
-  const AxiosAddressDetail = async (name) => {
+  const AxiosAddressDetail = async (id) => {
     try {
-      console.log(name);
-      if (name !== undefined) {
+      console.log(id);
+      if (id !== undefined) {
         setShow(true);
         setloadingDetail(true);
-        const url = `http://localhost:4000/api/address?search=${name}`;
+        const url = `http://localhost:4000/api/address/${id}`;
         let response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,
           },
         });
 
+        console.log(response.data.data)
         setalamatdetail(response.data.data);
         setloadingDetail(false);
       } else {
@@ -146,7 +153,7 @@ export default function CheckoutPage() {
       </Modal>
     );
   };
-  
+
   const AxiosCart = useCallback(async () => {
     try {
       setloading(true);
@@ -158,7 +165,6 @@ export default function CheckoutPage() {
         },
       });
       setcart(response.data.data);
-      
 
       setloading(false);
     } catch (error) {
@@ -195,15 +201,12 @@ export default function CheckoutPage() {
             </Col>
           </Row>
           <Row className="borderhigh">
-            {cart.map((item,index) => (
+            {cart.map((item, index) => (
               <>
                 <Col sm={3}>{item.product.name}</Col>
                 <Col sm={3}>{item.product.price}</Col>
                 <Col sm={3}>{item.qty}</Col>
                 <Col sm={3}>{item.product.price * item.qty}</Col>
-                {sethasil(item.product.price * item.qty)}
-                 {sethasil(item.product.price * item.qty)}
-                
               </>
             ))}
           </Row>
@@ -213,14 +216,29 @@ export default function CheckoutPage() {
             <Col sm={3}>
               <b>SubTotal </b>
             </Col>
-            <Col>{hasil}</Col>
+            <Col>{total}</Col>
           </Row>
         </Col>
       </Row>
     );
   };
 
-  
+  const CheckOut = async() => {
+    try {
+      setloadingCheckOut(true);
+      const url = ``;
+      await axios.post(url,{delivery_fee:deliveryFee,delivery_address: alamatform}, {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`
+        }
+      });
+      swal("Success","Success Created OrderCart","success")
+      setloadingCheckOut(false);
+
+    } catch (error) {
+      swal("Error",error.message,"error")
+    }
+  }
 
   return (
     <div>
@@ -261,9 +279,7 @@ export default function CheckoutPage() {
             <Col sm={1}>
               <b>:</b>
             </Col>
-            <Col sm={8}>
-              20000
-            </Col>
+            <Col sm={8}>{ deliveryFee}</Col>
           </Row>
           <div className="border mb-2 mt-2"></div>
           <Row>
@@ -273,7 +289,10 @@ export default function CheckoutPage() {
             <Col sm={1}>
               <b>:</b>
             </Col>
-            <Col sm={8}>{ }</Col>
+            <Col sm={8}>{
+              total+=deliveryFee
+
+            }</Col>
           </Row>
         </Card.Body>
         <Card.Footer>

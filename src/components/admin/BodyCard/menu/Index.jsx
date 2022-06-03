@@ -66,10 +66,10 @@ export default function MenuPage() {
         },
       });
       setcategory(response.data.data);
-      setloading(false);
+      // setloading(false);
     } catch (error) {
       swal("error", "Category :" + error.message, "error");
-      setloading(false);
+      // setloading(false);
     }
   }, []);
   useEffect(() => {
@@ -88,10 +88,10 @@ export default function MenuPage() {
       });
 
       settag(response.data.data);
-      setloading(false);
+      // setloading(false);
     } catch (error) {
       swal("error", "Tag :" + error.message, "errror");
-      setloading(false);
+      // setloading(false);
     }
   }, []);
   useEffect(() => {
@@ -133,10 +133,10 @@ export default function MenuPage() {
       });
     setcart(response.data.data);
 
-      setloading(false);
+      // setloading(false);
     } catch (error) {
       swal("Error", "cart:" + error.message, "error");
-      setloading(false);
+      // setloading(false);
     }
   }, []);
   useEffect(() => {
@@ -153,6 +153,7 @@ export default function MenuPage() {
       } else if (search === undefined) {
         setsearch("");
       } else {
+
         const currentUser = JSON.parse(localStorage.getItem("user"));
         const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
         let response = await axios.get(url, {
@@ -160,8 +161,9 @@ export default function MenuPage() {
             authorization: `Bearer ${currentUser.token}`,
           },
         });
-        setproduct(response.data.data);
         setloading(false);
+        setproduct(response.data.data);
+      
       }
     } catch (error) {
       swal("Error", error.message, "error");
@@ -280,7 +282,11 @@ export default function MenuPage() {
 
         <Card.Body>
           <Row>
-            {loading ? (
+            {console.log(loading,product)
+           
+            }
+            {
+              loading ? (
               <Button className="btn btn-secondary w-100" disabled>
                 <Spinner
                   as="span"
@@ -291,12 +297,12 @@ export default function MenuPage() {
                 />
                 Loading...
               </Button>
-            ) : currentItem.length === 0 ? (
+            ) : product.length === 0 ? (
               <div className="alert alert-danger w-100">
                 <center>Data Empty / Data Not Response</center>
               </div>
             ) : (
-              currentItem.map((menu) => (
+              product.map((menu) => (
                 <MenuItem
                   title={menu.name}
                   category={menu.category.name}

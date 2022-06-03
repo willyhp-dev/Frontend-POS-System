@@ -104,21 +104,21 @@ export default function CartPage() {
 
   const AxiosQty = async (param1, id, qty, price) => {
     try {
-      console.log(price);
-      // let hasil = 0;
-      // if (param1 === "DEC") {
-      //    hasil = qty - 1;
-      // }
-      // if (param1 === "INC") {
-      //    hasil = qty + 1;
-      // }
-      // setloading(true);
-      // const url = `http://localhost:4000/api/carts/updateqty/${id}`;
-      // await axios.patch(url,{qty:hasil}, {
-      //   headers: {
-      //     Authorization: `Bearer ${currentUser.token}`
-      //   }
-      // }).then(()=>AxiosData());
+      
+      let hasil = 0;
+      if (param1 === "DEC") {
+         hasil = qty - 1;
+      }
+      if (param1 === "INC") {
+         hasil = qty + 1;
+      }
+      setloading(true);
+      const url = `http://localhost:4000/api/carts/updateqty/${id}`;
+      await axios.patch(url,{qty:hasil}, {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`
+        }
+      }).then(()=>AxiosData());
     } catch (error) {
       setloading(false);
       swal("Error", error.message, "error");
