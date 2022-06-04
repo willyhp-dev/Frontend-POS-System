@@ -44,16 +44,16 @@ export default function RouterPage() {
     <div>
       {currentUser === null ? (
         <Routes>
-          <Route path="/" element={<DashboardPage />}>
-            Dashboard
-          </Route>
+         
           <Route path="/login" element={<PageLogin />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/menu" element={<MenuPage />} />
         </Routes>
       ) : currentUser.user.role === "user" ? (
         <Routes>
-          
+          <Route path="/" element={<DashboardPage />}>
+            Dashboard
+          </Route>
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />

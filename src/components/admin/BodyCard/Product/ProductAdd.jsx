@@ -1,7 +1,7 @@
 import { faBackspace, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -10,50 +10,10 @@ export default function ProductAdd() {
   const [name, setname] = useState();
   const [price, setprice] = useState();
   const [description, setdescription] = useState();
-  const [category, setCategory] = useState(0);
-  const [tag, settag] = useState(0);
   const [image, setimage] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [tags, settags] = useState([]);
   const [loading, setloading] = useState(false);
   const Navigate = useNavigate();
 
-  // const AxiosTag = useCallback(async () => {
-  //   try {
-  //     const currentUser = JSON.parse(localStorage.getItem("user"));
-  //     const url = `http://localhost:4000/api/tag`;
-  //     let response = await axios.get(url, {
-  //       headers: {
-  //         Authorization: `Bearer ${currentUser.token}`,
-  //       },
-  //     });
-  //     settags(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   AxiosTag();
-  // }, [AxiosTag]);
-
-  // const AxiosCategory = useCallback(async () => {
-  //   try {
-  //     const currentUser = JSON.parse(localStorage.getItem("user"));
-  //     const url = `http://localhost:4000/api/category`;
-  //     let response = await axios.get(url, {
-  //       headers: {
-  //         Authorization: `Bearer ${currentUser.token}`,
-  //       },
-  //     });
-  //     setCategories(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   AxiosCategory();
-  // }, [AxiosCategory]);
 
   const handleFileChange = (e) => {
     

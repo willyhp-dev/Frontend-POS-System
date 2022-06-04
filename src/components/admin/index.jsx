@@ -74,9 +74,9 @@ export default function AdminPage() {
   };
   const NavbarPages = () => {
     return (
-      <Navbar className="shadow margin-settings" bg="dark" variant="dark">
+      <Navbar className="shadow margin-settings" bg="primary" variant="secondary">
         <Container>
-          <Button className="btn btn-dark" onClick={() => setOpen(!open)}>
+          <Button className="btn btn-primary" onClick={() => setOpen(!open)}>
             <FontAwesomeIcon icon={faBars} />
           </Button>
           <Navbar.Brand>
@@ -140,7 +140,7 @@ export default function AdminPage() {
       <Row>
         {!open && (
           <Col sm={2}>
-            <Card className="bg-dark shadow heights rounded-0">
+            <Card className="bg-primary shadow heights rounded-0">
               <SidebarPage />
             </Card>
           </Col>

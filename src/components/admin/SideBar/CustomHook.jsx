@@ -17,7 +17,6 @@ const SubBar = [
   { index: 7, name: "Invoice", icon: faFileInvoice, link: "/Invoice" },
 ];
 const SubQuestBar = [
-  { index: 1, name: "Dashboard", icon: faDashboard, link: "/" },
   { index: 2, name: "Menu", icon: faBowlFood, link: "/menu" },
 ];
 const subBarAdmin = [
@@ -34,8 +33,8 @@ const SubSizeBar = ({ icon, name, link }) => {
   return (
     <Link to={link} element="">
       <Button
-        variant="secondary"
-        className="btn btn-outline-light rounded-0 w-100"
+        variant="primary"
+        className="btn rounded-0 w-100"
       >
         <Row>
           <Col sm={1} className="marginIcon">

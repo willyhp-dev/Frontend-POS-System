@@ -6,8 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Card, Col, Modal, Row, Spinner } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import "./index.css";
 
@@ -21,12 +21,15 @@ export default function CheckoutPage() {
   const [cart, setcart] = useState([]);
   const [show, setShow] = useState(false);
   const deliveryFee = 20000;
+  const Navigate = useNavigate();
 
   let total = 0;
+
   cart.forEach((element) => {
     const hasil = element.product.price * element.qty;
     total += hasil;
   });
+  let allTotal = total + deliveryFee;
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
@@ -39,7 +42,6 @@ export default function CheckoutPage() {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
-      console.log("Alamat");
       setalamat(response.data.data);
       setloading(false);
     } catch (error) {
@@ -70,7 +72,6 @@ export default function CheckoutPage() {
 
   const AxiosAddressDetail = async (id) => {
     try {
-      console.log(id);
       if (id !== undefined) {
         setShow(true);
         setloadingDetail(true);
@@ -81,7 +82,6 @@ export default function CheckoutPage() {
           },
         });
 
-        console.log(response.data.data)
         setalamatdetail(response.data.data);
         setloadingDetail(false);
       } else {
@@ -223,22 +223,31 @@ export default function CheckoutPage() {
     );
   };
 
-  const CheckOut = async() => {
+  const CheckOut = async () => {
     try {
       setloadingCheckOut(true);
-      const url = ``;
-      await axios.post(url,{delivery_fee:deliveryFee,delivery_address: alamatform}, {
-        headers: {
-          Authorization: `Bearer ${currentUser.token}`
-        }
-      });
-      swal("Success","Success Created OrderCart","success")
-      setloadingCheckOut(false);
-
+      if (alamatform === undefined) {
+        swal("Error", "Wajib Input Alamat", "error");
+        setloadingCheckOut(false);
+      } else {
+        const url = `http://localhost:4000/api/orders`;
+        await axios.post(
+          url,
+          { delivery_fee: deliveryFee, delivery_address: alamatform },
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.token}`,
+            },
+          }
+        );
+        swal("Success", "Success Created OrderCart", "success");
+        setloadingCheckOut(false);
+        Navigate("/Invoice");
+      }
     } catch (error) {
-      swal("Error",error.message,"error")
+      swal("Error", error.message, "error");
     }
-  }
+  };
 
   return (
     <div>
@@ -279,7 +288,7 @@ export default function CheckoutPage() {
             <Col sm={1}>
               <b>:</b>
             </Col>
-            <Col sm={8}>{ deliveryFee}</Col>
+            <Col sm={8}>{deliveryFee}</Col>
           </Row>
           <div className="border mb-2 mt-2"></div>
           <Row>
@@ -289,10 +298,7 @@ export default function CheckoutPage() {
             <Col sm={1}>
               <b>:</b>
             </Col>
-            <Col sm={8}>{
-              total+=deliveryFee
-
-            }</Col>
+            <Col sm={8}>{allTotal}</Col>
           </Row>
         </Card.Body>
         <Card.Footer>
@@ -301,11 +307,25 @@ export default function CheckoutPage() {
               <FontAwesomeIcon icon={faBackspace} /> Back
             </Button>
           </Link>
-          <Link to="/InvoiceForm">
-            <Button className="float-right btn btn-secondary btn-sm">
+          {loadingCheckOut ? (
+            <Button className="btn btn-secondary" disabled>
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              Loading...
+            </Button>
+          ) : (
+            <Button
+              onClick={() => CheckOut()}
+              className="float-right btn btn-secondary btn-sm"
+            >
               <FontAwesomeIcon icon={faMoneyBill} /> CheckOut
             </Button>
-          </Link>
+          )}
         </Card.Footer>
       </Card>
     </div>

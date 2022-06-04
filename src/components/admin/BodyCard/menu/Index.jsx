@@ -5,7 +5,6 @@ import {
   Card,
   Col,
   FormControl,
-  FormSelect,
   Row,
   Spinner,
 } from "react-bootstrap";
@@ -68,7 +67,7 @@ export default function MenuPage() {
       setcategory(response.data.data);
       // setloading(false);
     } catch (error) {
-      swal("error", "Category :" + error.message, "error");
+   
       // setloading(false);
     }
   }, []);
@@ -90,7 +89,7 @@ export default function MenuPage() {
       settag(response.data.data);
       // setloading(false);
     } catch (error) {
-      swal("error", "Tag :" + error.message, "errror");
+     
       // setloading(false);
     }
   }, []);
@@ -135,7 +134,7 @@ export default function MenuPage() {
 
       // setloading(false);
     } catch (error) {
-      swal("Error", "cart:" + error.message, "error");
+    
       // setloading(false);
     }
   }, []);
@@ -155,14 +154,23 @@ export default function MenuPage() {
       } else {
 
         const currentUser = JSON.parse(localStorage.getItem("user"));
-        const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
-        let response = await axios.get(url, {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        });
-        setloading(false);
-        setproduct(response.data.data);
+        if (currentUser === null) {
+          const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
+          let response = await axios.get(url);
+          setloading(false);
+          setproduct(response.data.data);
+        }
+        else {
+          const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
+          let response = await axios.get(url, {
+            headers: {
+              authorization: `Bearer ${currentUser.token}`,
+            },
+          });
+          setloading(false);
+          setproduct(response.data.data);
+        }
+       
       
       }
     } catch (error) {
@@ -265,16 +273,21 @@ export default function MenuPage() {
             </Col>
             <Col sm={2}>
               <div className="float-right">
-                <Link to="/cart">
-                  <Button className="btn btn-sm">
-                    <FontAwesomeIcon icon={faCartShopping} />
-                    <span className="badge badge-primary align-text-top">
-                      {cart === undefined ? 0 : (cart.map((item, index) =>
-                        index+=1
-                      ))}{" "}
-                    </span>
-                  </Button>
-                </Link>
+                {
+                  currentUser !== null && (
+                    <Link to="/cart">
+                    <Button className="btn btn-sm">
+                      <FontAwesomeIcon icon={faCartShopping} />
+                      <span className="badge badge-primary align-text-top">
+                        {cart === undefined ? 0 : (cart.map((item, index) =>
+                          index+=1
+                        ))}{" "}
+                      </span>
+                    </Button>
+                  </Link>
+                  )
+                }
+               
               </div>
             </Col>
           </Row>
@@ -282,9 +295,7 @@ export default function MenuPage() {
 
         <Card.Body>
           <Row>
-            {console.log(loading,product)
-           
-            }
+         
             {
               loading ? (
               <Button className="btn btn-secondary w-100" disabled>
@@ -297,12 +308,12 @@ export default function MenuPage() {
                 />
                 Loading...
               </Button>
-            ) : product.length === 0 ? (
+            ) : currentItem.length === 0 ? (
               <div className="alert alert-danger w-100">
                 <center>Data Empty / Data Not Response</center>
               </div>
             ) : (
-              product.map((menu) => (
+              currentItem.map((menu) => (
                 <MenuItem
                   title={menu.name}
                   category={menu.category.name}

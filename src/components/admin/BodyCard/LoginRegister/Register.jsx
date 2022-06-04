@@ -2,12 +2,38 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Form,  Spinner } from "react-bootstrap";
 import swal from "sweetalert";
-
+import { useNavigate } from "react-router-dom";
 export default function RegisterPage() {
   const [full_name, setfull_name] = useState();
   const [email, setemail] = useState();
   const [password, setpassword] = useState();
   const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
+  const loginform = async (e) => {
+    e.preventDefault();
+    setloading(true);
+
+    let url = "http://localhost:4000/api/auth/login";
+    axios
+      .post(url, {
+        email: email,
+        password: password,
+      })
+      .then((result) => {
+        if (result.data.token) {
+          localStorage.setItem("user", JSON.stringify(result.data));
+        }
+    
+        navigate("/");
+        return result.data;
+      })
+      .catch((error) => {
+        setloading(false);
+        swal("ERROR", "Anda Gagal Login Akun", "error");
+        console.log(error);
+      });
+  };
+
   const RegisterForm = async (e) => {
     e.preventDefault();
     setloading(true);
@@ -18,8 +44,22 @@ export default function RegisterPage() {
         email: email,
         password: password,
       });
-      setloading(false);
-      swal("Sukses", "Anda Berhasil buat akun User", "sukses");
+      let urls = "http://localhost:4000/api/auth/login";
+      await axios
+        .post(urls, {
+          email: email,
+          password: password,
+        })
+        .then((result) => {
+          if (result.data.token) {
+            localStorage.setItem("user", JSON.stringify(result.data));
+          }
+          setloading(false);
+          swal("Sukses", "Anda Berhasil buat akun User", "success");
+          navigate("/");
+          return result.data;
+        });
+     
     } catch (error) {
       console.log(error);
       setloading(false);

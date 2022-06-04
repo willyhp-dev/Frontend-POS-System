@@ -26,7 +26,7 @@ export default function SidebarPage() {
               <SubSizeBar icon={sub.icon} name={sub.name} link={sub.link} />
             ))}
       </div>
-      <div className="border"></div>
+ 
     </div>
   );
 }

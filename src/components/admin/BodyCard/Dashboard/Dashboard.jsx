@@ -18,6 +18,8 @@ export default function DashboardPage() {
   const [Invoice, setInvoice] = useState([]);
   const [loading, setloading] = useState(false);
 
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  
   const AxiosProduct = useCallback(async () => {
     try {
       setloading(true);
@@ -110,14 +112,14 @@ export default function DashboardPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/Invoice`;
+      const url = `http://localhost:4000/api/orders`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
   
-      setInvoice(response.data);
+      setInvoice(response.data.count);
       setloading(false);
     } catch (error) {
       setloading(false);
@@ -154,7 +156,7 @@ export default function DashboardPage() {
     {
       index: 5,
       variant: "secondary",
-      number: 100,
+      number: Invoice,
       name: "Invoices",
       icon: faUser,
     },
@@ -176,16 +178,18 @@ export default function DashboardPage() {
               />
               Loading...
             </Button>
-          ) : (
-            DataPage.map((page) => (
-              <CardDashboard
-                key={page.index}
-                variant={page.variant}
-                number={page.number}
-                name={page.name}
-                icon={page.icon}
-              />
-            ))
+          ) : (currentUser.user.role ==="admin"?(DataPage.map((page) => (
+            <CardDashboard
+              key={page.index}
+              variant={page.variant}
+              number={page.number}
+              name={page.name}
+              icon={page.icon}
+            />
+          ))) : (
+                <div>Selamat Datang POS System</div>
+          )
+            
           )}
         </Row>
       </Card.Body>

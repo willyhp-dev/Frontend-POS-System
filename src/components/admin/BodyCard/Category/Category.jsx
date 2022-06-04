@@ -15,7 +15,6 @@ import {
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
-
 export default function CategoryPage() {
   const [category, setCategory] = useState([]);
   const [loading, setloading] = useState(false);
@@ -155,7 +154,7 @@ export default function CategoryPage() {
             <Col sm>
               {" "}
               <Link to="/category/store">
-                <Button className ="btn btn-primary">
+                <Button className ="btn btn-primary btn-sm">
                   <FontAwesomeIcon icon={ faPlus}/> Add
                 </Button>
              </Link>
