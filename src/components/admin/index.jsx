@@ -43,7 +43,7 @@ export default function AdminPage() {
     }).then(async (willDelete) => {
       if (willDelete) {
         setloading(true);
-        const url = "http://localhost:4000/api/auth/logout";
+        const url = `${process.env.REACT_APP_SERVER_API}/api/auth/logout`;
 
         await axios
           .get(url, {
