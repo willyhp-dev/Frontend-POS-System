@@ -11,6 +11,8 @@ import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+
+
 export default function CartPage() {
   const [cart, setcart] = useState([]);
   const [loading, setloading] = useState(false);

@@ -26,6 +26,9 @@ export default function MenuPage() {
   const [currentPage, setcurrentPage] = useState(1);
   const [itemPerPage] = useState(5);
   const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  let total = 0;
+
   let items = [];
   for (
     let number = 1;
@@ -279,15 +282,15 @@ export default function MenuPage() {
                     <Button className="btn btn-sm">
                       <FontAwesomeIcon icon={faCartShopping} />
                       <span className="badge badge-primary align-text-top">
-                        {cart === undefined ? 0 : (cart.map((item, index) =>
-                          index+=1
-                        ))}{" "}
+                        {cart === undefined ? 0 : (cart.forEach((item, index) =>
+                          total+=1
+                          ))}{" "}
+                          {total}
                       </span>
                     </Button>
                   </Link>
                   )
                 }
-               
               </div>
             </Col>
           </Row>

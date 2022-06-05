@@ -81,8 +81,8 @@ export default function CheckoutPage() {
             Authorization: `Bearer ${currentUser.token}`,
           },
         });
-
-        setalamatdetail(response.data.data);
+        // console.log(response.data);
+        setalamatdetail(response.data);
        
       } else {
         setShow(true);
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
             </Button>
           </Link>
           {loadingCheckOut ? (
-            <Button className="btn btn-secondary" disabled>
+            <Button className="btn btn-secondary float-right" disabled>
               <Spinner
                 as="span"
                 animation="grow"
