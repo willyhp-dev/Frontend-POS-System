@@ -23,6 +23,7 @@ export default function CheckoutPage() {
   const deliveryFee = 20000;
   const Navigate = useNavigate();
 
+
   let total = 0;
 
   cart.forEach((element) => {
@@ -30,6 +31,8 @@ export default function CheckoutPage() {
     total += hasil;
   });
   let allTotal = total + deliveryFee;
+
+
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
@@ -81,7 +84,7 @@ export default function CheckoutPage() {
             Authorization: `Bearer ${currentUser.token}`,
           },
         });
-        // console.log(response.data);
+        
         setalamatdetail(response.data);
        
       } else {
@@ -233,7 +236,7 @@ export default function CheckoutPage() {
         const url = `${process.env.REACT_APP_SERVER_API}/api/orders`;
         await axios.post(
           url,
-          { delivery_fee: deliveryFee, delivery_address: alamatform },
+          { delivery_fee: deliveryFee, delivery_address: alamatform,total:allTotal },
           {
             headers: {
               Authorization: `Bearer ${currentUser.token}`,
@@ -308,7 +311,7 @@ export default function CheckoutPage() {
             </Button>
           </Link>
           {loadingCheckOut ? (
-            <Button className="btn btn-secondary float-right" disabled>
+            <Button className="btn btn-secondary" disabled>
               <Spinner
                 as="span"
                 animation="grow"
@@ -321,7 +324,7 @@ export default function CheckoutPage() {
           ) : (
             <Button
               onClick={() => CheckOut()}
-              className="float-right btn btn-secondary btn-sm"
+              className="float-right btn btn-secondary float-right btn-sm"
             >
               <FontAwesomeIcon icon={faMoneyBill} /> CheckOut
             </Button>

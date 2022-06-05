@@ -63,6 +63,7 @@ export default function InvoicePage() {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
+      console.log(response.data.data);
       setInvoice(response.data.data);
       setloading(false);
     } catch (error) {
@@ -84,7 +85,7 @@ export default function InvoicePage() {
     try {
       setShowUpdate(true);
       setloading(true);
-      const url = `http://localhost:4000/api/orders/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/orders/update/${id}`;
       await axios
         .patch(
           url,
@@ -146,7 +147,7 @@ export default function InvoicePage() {
         <tr>
           <td>{(index += 1)}</td>
           <td>{items.order_number}</td>
-          <td>{total}</td>
+          <td>{ items.items_count + items.delivery_fee}</td>
           <td>{items.status}</td>
           <td width="15%">
             <Button

@@ -1,7 +1,7 @@
 import { faBackspace, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -13,17 +13,58 @@ export default function ProductAdd() {
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
   const Navigate = useNavigate();
-
+  const [category, setcategory] = useState([]);
+  const [tag, settag] = useState([]);
+  const [inputcategory, setinputcategory] = useState();
+  const [inputtag, setinputtag] = useState();
 
   const handleFileChange = (e) => {
-    
-    setimage(e.target.files[0])
+    setimage(e.target.files[0]);
   };
+
+  const AxiosCategory = useCallback(async () => {
+    try {
+      const url = `${process.env.REACT_APP_SERVER_API}/api/category`;
+      const currentUser = JSON.parse(localStorage.getItem("user"));
+      let response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+
+      setcategory(response.data.data);
+    } catch (error) {
+      swal("Error", error.message, "error");
+    }
+  }, []);
+  useEffect(() => {
+    AxiosCategory();
+  }, [AxiosCategory]);
+
+  const AxiosTag = useCallback(async () => {
+    try {
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag`;
+      const currentUser = JSON.parse(localStorage.getItem("user"));
+      let response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+
+      settag(response.data.data);
+    } catch (error) {
+      swal("Error", error.message, "error");
+    }
+  }, []);
+  useEffect(() => {
+    AxiosTag();
+  }, [AxiosTag]);
+
   const AxiosAdd = async (e) => {
     e.preventDefault();
     try {
       setloading(true);
-    
+
       const currentUser = JSON.parse(localStorage.getItem("user"));
       const url = `${process.env.REACT_APP_SERVER_API}/api/products/store`;
       await axios.post(
@@ -33,11 +74,13 @@ export default function ProductAdd() {
           price: price,
           description: description,
           image: image,
+          tag: inputtag,
+          category: inputcategory,
         },
         {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -113,10 +156,37 @@ export default function ProductAdd() {
                     type="file"
                     name="file"
                     id="file"
-                    onChange={(e)=>handleFileChange(e)}
+                    onChange={(e) => handleFileChange(e)}
                   ></input>
                 </Form.Group>
-                
+                <Form.Group>
+                  <Form.Label className="mt-1">Category</Form.Label>
+                  <Form.Select
+                    onChange={(e) => setinputcategory(e.target.value)}
+                    value={inputcategory}
+                    className="form-control w-100"
+                  >
+                    <option>---Pilih Category---</option>
+                    {category.map((item) => (
+                      <option>{item.name}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Tag</Form.Label>
+                  <Form.Select
+                    onChange={(e) => setinputtag(e.target.value)}
+                    value={inputtag}
+                    id="inputtag"
+                    className="form-control w-100"
+                  >
+                    <option>---Pilih Tag---</option>
+                    {tag.map((tagz) => (
+                      <option>{tagz.name}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
               </Col>
             </Row>
           </Card.Body>

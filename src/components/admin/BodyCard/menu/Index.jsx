@@ -125,7 +125,7 @@ export default function MenuPage() {
 
   const AxiosCart = useCallback(async () => {
     try {
-      setloading(true);
+     
       const currentUser = JSON.parse(localStorage.getItem("user"));
       const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
