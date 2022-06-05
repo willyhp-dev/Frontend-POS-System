@@ -23,7 +23,7 @@ export default function KabupatenAdd() {
 
     try {
       setloading(true);
-      const url = `http://localhost:4000/api/kabupaten/store`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kabupaten/store`;
       await axios.post(
         url,
         { name: name },

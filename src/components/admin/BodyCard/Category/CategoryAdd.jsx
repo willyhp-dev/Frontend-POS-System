@@ -23,7 +23,7 @@ export default function CategoryAdd() {
     setloading(true);
     await axios
       .post(
-        "http://localhost:4000/api/category/store",
+        `${process.env.REACT_APP_SERVER_API}/api/category/store`,
         { name: name },
         {
           headers: {

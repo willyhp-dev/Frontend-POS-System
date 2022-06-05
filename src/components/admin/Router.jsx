@@ -25,7 +25,7 @@ import RegisterPage from "./BodyCard/LoginRegister/Register";
 import CartPage from "./BodyCard/menu/Cart";
 import CheckoutPage from "./BodyCard/menu/CheckOut";
 import MenuPage from "./BodyCard/menu/Index";
-import InvoiceFormPage from "./BodyCard/menu/InvoiceForm";
+
 import CategoryProduct from "./BodyCard/Product/category";
 import ProductPage from "./BodyCard/Product/Product";
 import ProductAdd from "./BodyCard/Product/ProductAdd";
@@ -58,7 +58,6 @@ export default function RouterPage() {
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/InvoiceForm" element={<InvoiceFormPage />} />
         </Routes>
       ) : (
         <Routes>
@@ -88,7 +87,7 @@ export default function RouterPage() {
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/InvoiceForm" element={<InvoiceFormPage />} />
+        
           <Route
             path="/address/kabupaten/update/:id"
             element={<KabupatenEdit />}

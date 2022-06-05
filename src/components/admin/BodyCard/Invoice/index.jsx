@@ -57,7 +57,7 @@ export default function InvoicePage() {
       }
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/orders?search=${value}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/orders?search=${value}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,

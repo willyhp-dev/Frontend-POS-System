@@ -2,7 +2,7 @@ import { faBackspace, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Form, FormControl, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Form, Spinner } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
 
@@ -15,7 +15,7 @@ export default function TagProduct() {
 
   const AxiosData = useCallback(async () => {
     try {
-      const url = `http://localhost:4000/api/tag`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag`;
       const currentUser = JSON.parse(localStorage.getItem("user"));
       let response = await axios.get(url, {
         headers: {
@@ -37,7 +37,7 @@ export default function TagProduct() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/tag/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/tag/${id}`;
       await axios.patch(url,{tag:inputtag}, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,

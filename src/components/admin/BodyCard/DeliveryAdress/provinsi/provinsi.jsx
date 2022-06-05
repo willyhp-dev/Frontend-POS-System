@@ -19,7 +19,6 @@ export default function ProvinsiPage() {
   const [provinsi, setprovinsi] = useState([]);
   const [loading, setloading] = useState(false);
 
-  const [open, setopen] = useState();
   const [currentPage, setcurrentPage] = useState(1);
   const [itemPerPage] = useState(5);
 
@@ -58,7 +57,7 @@ export default function ProvinsiPage() {
       }
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/provinsi?search=${value}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/provinsi?search=${value}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -88,7 +87,7 @@ export default function ProvinsiPage() {
           try {
             setloading(true);
             const currentUser = JSON.parse(localStorage.getItem("user"));
-            const url = `http://localhost:4000/api/provinsi/delete/${id}`;
+            const url = `${process.env.REACT_APP_SERVER_API}/api/provinsi/delete/${id}`;
             await axios.delete(url, {
               headers: {
                 Authorization: `Bearer ${currentUser.token}`,

@@ -39,7 +39,7 @@ export default function KabupatenEdit() {
     try {
       const currentUser = JSON.parse(localStorage.getItem("user"));
       setloading(true);
-      const url = `http://localhost:4000/api/kabupaten/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kabupaten/update/${id}`;
       await axios.patch(url,{name:name}, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,

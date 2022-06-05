@@ -25,7 +25,7 @@ export default function ProductAdd() {
       setloading(true);
     
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/store`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/store`;
       await axios.post(
         url,
         {

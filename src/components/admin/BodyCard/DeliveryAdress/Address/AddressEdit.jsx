@@ -54,7 +54,7 @@ export default function AddressEdit() {
     e.preventDefault();
     try {
       setloadings(true);
-      const url = `http://localhost:4000/api/address/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/address/update/${id}`;
       const currentUser = JSON.parse(localStorage.getItem("user"));
       await axios.patch(
         url,

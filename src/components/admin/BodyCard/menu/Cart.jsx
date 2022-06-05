@@ -48,7 +48,7 @@ export default function CartPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/carts`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -83,7 +83,7 @@ export default function CartPage() {
       if (willDelete) {
         try {
           setloading(true);
-          const url = `http://localhost:4000/api/carts/delete/${id}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/carts/delete/${id}`;
           await axios
             .delete(url, {
               headers: {
@@ -113,7 +113,7 @@ export default function CartPage() {
          hasil = qty + 1;
       }
       setloading(true);
-      const url = `http://localhost:4000/api/carts/updateqty/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/carts/updateqty/${id}`;
       await axios.patch(url,{qty:hasil}, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`
@@ -171,7 +171,7 @@ export default function CartPage() {
               <td>{(index += 1)}</td>
               <td>
                 <img
-                  src={`http://localhost:4000/images/products/${item.product.image_url}`}
+                  src={`${process.env.REACT_APP_SERVER_API}/images/products/${item.product.image_url}`}
                   width={100}
                   height={100}
                   alt=""

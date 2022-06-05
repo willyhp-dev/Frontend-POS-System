@@ -61,7 +61,7 @@ export default function KeluarahanPage() {
       }
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/kelurahan?search=${value}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kelurahan?search=${value}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -90,7 +90,7 @@ export default function KeluarahanPage() {
           try {
             setloading(true);
             const currentUser = JSON.parse(localStorage.getItem("user"));
-            const url = `http://localhost:4000/api/kelurahan/delete/${id}`;
+            const url = `${process.env.REACT_APP_SERVER_API}/api/kelurahan/delete/${id}`;
             await axios.delete(url, {
               headers: {
                 Authorization: `Bearer ${currentUser.token}`,

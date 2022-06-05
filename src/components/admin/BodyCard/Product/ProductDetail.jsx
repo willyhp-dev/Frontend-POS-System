@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [loading, setloading] = useState(false);
-  const [product, setproduct] = useState(false);
+
   const [name, setname] = useState();
   const [price, setprice] = useState();
   const [description, setdescription] = useState();
@@ -20,7 +20,7 @@ export default function ProductDetail() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/${id}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -63,7 +63,7 @@ export default function ProductDetail() {
           <Row>
             <Col sm={3}>
               <img
-                src={`http://localhost:4000/images/products/${image}`}
+                src={`${process.env.REACT_APP_SERVER_API}/images/products/${image}`}
                 width="150px"
                 height="150px"
                 alt=""

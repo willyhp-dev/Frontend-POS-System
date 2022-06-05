@@ -2,7 +2,8 @@ import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { Thead,LengthNull,Spinners } from "./CustomHooks";
+import { Thead, LengthNull, Spinners } from "./CustomHooks";
+
 import {
   Button,
   Card,
@@ -54,7 +55,7 @@ export default function CategoryPage() {
       value = "";
     }
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    const url = `http://localhost:4000/api/category?search=${value}`;
+    const url = `${process.env.REACT_APP_SERVER_API}/api/category?search=${value}`;
     await axios
       .get(url, {
         headers: {
@@ -88,7 +89,7 @@ export default function CategoryPage() {
             setloading(true);
             const currentUser = JSON.parse(localStorage.getItem("user"));
             await axios.delete(
-              `http://localhost:4000/api/category/delete/${id}`,
+              `${process.env.REACT_APP_SERVER_API}/api/category/delete/${id}`,
               {
                 headers: {
                   Authorization: `Bearer ${currentUser.token}`,
@@ -162,7 +163,7 @@ export default function CategoryPage() {
             <Col sm>
               <div className="float-right">
                 <FormControl
-                  placeholder="Search Tag..."
+                  placeholder="Search Category..."
                   onChange={(e) => AxiosData(e.target.value)}
                 />
               </div>

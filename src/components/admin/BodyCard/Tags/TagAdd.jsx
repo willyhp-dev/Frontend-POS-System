@@ -24,7 +24,7 @@ export default function TagAdd() {
     e.preventDefault();
     try {
       setloading(true);
-      const url = `http://localhost:4000/api/tag/store`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag/store`;
       await axios.post(
         url,
         { name: name },

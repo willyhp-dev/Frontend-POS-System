@@ -20,7 +20,7 @@ export default function AddressDetail() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/address/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/address/${id}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,

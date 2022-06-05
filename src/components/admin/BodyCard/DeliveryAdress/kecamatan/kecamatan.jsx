@@ -62,7 +62,7 @@ export default function KecamatanPage() {
       }
       const currentUser = JSON.parse(localStorage.getItem("user"));
       setloading(true);
-      const url = `http://localhost:4000/api/kecamatan?search=${value}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kecamatan?search=${value}`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -90,7 +90,7 @@ export default function KecamatanPage() {
         try {
           setloading(true);
           const currentUser = JSON.parse(localStorage.getItem("user"));
-          const url = `http://localhost:4000/api/kecamatan/delete/${id}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/kecamatan/delete/${id}`;
           await axios
             .delete(url, {
               headers: {

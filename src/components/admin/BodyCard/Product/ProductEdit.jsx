@@ -24,7 +24,7 @@ export default function ProductEdit() {
     try {
       setloadings(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/${id}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -49,7 +49,7 @@ export default function ProductEdit() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/update/${id}`;
       await axios.patch(
         url,
         { name: name, price: price, description: description, image: image },
@@ -138,7 +138,7 @@ export default function ProductEdit() {
                   </Col>
                   <Col sm>
                     <img
-                      src={`http://localhost:4000/images/products/${image}`}
+                      src={`${process.env.REACT_APP_SERVER_API}/images/products/${image}`}
                       width="100px"
                       height="100px"
                       alt=""

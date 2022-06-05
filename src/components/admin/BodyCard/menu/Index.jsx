@@ -58,7 +58,7 @@ export default function MenuPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/category`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/category`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -79,7 +79,7 @@ export default function MenuPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/tag`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -100,7 +100,7 @@ export default function MenuPage() {
   const AxiosCartUpdate = async (id) => {
     try {
       setloadingcart(true);
-      const url = `http://localhost:4000/api/updates/carts`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/updates/carts`;
       await axios
         .patch(
           url,
@@ -124,7 +124,7 @@ export default function MenuPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/carts`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -155,13 +155,13 @@ export default function MenuPage() {
 
         const currentUser = JSON.parse(localStorage.getItem("user"));
         if (currentUser === null) {
-          const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
           let response = await axios.get(url);
           setloading(false);
           setproduct(response.data.data);
         }
         else {
-          const url = `http://localhost:4000/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/products?q=${search}&category=${searchCategory}&tag=${searchTag}`;
           let response = await axios.get(url, {
             headers: {
               authorization: `Bearer ${currentUser.token}`,
@@ -319,7 +319,7 @@ export default function MenuPage() {
                   category={menu.category.name}
                   tag={menu.tag.name}
                   price={menu.price}
-                  image={`http://localhost:4000/images/products/${menu.image_url}`}
+                  image={`${process.env.REACT_APP_SERVER_API}/images/products/${menu.image_url}`}
                   id={menu._id}
                 />
               ))

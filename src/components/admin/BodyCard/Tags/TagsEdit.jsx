@@ -22,7 +22,7 @@ export default function TagEdit() {
   const AxiosDetail = useCallback(async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/tag/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag/${id}`;
       let Response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -42,7 +42,7 @@ export default function TagEdit() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/tag/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag/update/${id}`;
       await axios.patch(
         url, {
           name: name,

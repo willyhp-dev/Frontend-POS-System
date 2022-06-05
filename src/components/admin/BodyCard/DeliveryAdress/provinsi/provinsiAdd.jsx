@@ -23,7 +23,7 @@ export default function ProvinsiAdd() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/provinsi/store`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/provinsi/store`;
       await axios.post(
         url,
         { name: name },

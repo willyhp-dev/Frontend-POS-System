@@ -21,7 +21,7 @@ export default function CategoryEdit() {
   const navigate = useNavigate();
   const AxiosDetail = useCallback(async () => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    const url = `http://localhost:4000/api/category/detail/${id}`;
+    const url = `${process.env.REACT_APP_SERVER_API}/api/category/detail/${id}`;
     await axios
       .get(url, {
         headers: {
@@ -40,7 +40,7 @@ export default function CategoryEdit() {
     setloading(true);
    
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/category/edit/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/category/edit/${id}`;
       await axios.patch(
         url,
         { name:name },

@@ -12,7 +12,7 @@ import swal from "sweetalert";
 import "./index.css";
 
 export default function CheckoutPage() {
-  const [loading, setloading] = useState(false);
+
   const [loadingDetail, setloadingDetail] = useState(false);
   const [loadingCheckOut, setloadingCheckOut] = useState(false);
   const [alamat, setalamat] = useState([]);
@@ -34,19 +34,19 @@ export default function CheckoutPage() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
     try {
-      setloading(true);
+     
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/address`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/address`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
       setalamat(response.data.data);
-      setloading(false);
+    
     } catch (error) {
       swal("Error", error.message, "error");
-      setloading(false);
+
     }
   }, []);
   useEffect(() => {
@@ -74,8 +74,8 @@ export default function CheckoutPage() {
     try {
       if (id !== undefined) {
         setShow(true);
-        setloadingDetail(true);
-        const url = `http://localhost:4000/api/address/${id}`;
+        
+        const url = `${process.env.REACT_APP_SERVER_API}/api/address/${id}`;
         let response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
         });
 
         setalamatdetail(response.data.data);
-        setloadingDetail(false);
+       
       } else {
         setShow(true);
       }
@@ -156,9 +156,9 @@ export default function CheckoutPage() {
 
   const AxiosCart = useCallback(async () => {
     try {
-      setloading(true);
+  
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/carts`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -166,10 +166,10 @@ export default function CheckoutPage() {
       });
       setcart(response.data.data);
 
-      setloading(false);
+
     } catch (error) {
       swal("Error", error.message, "error");
-      setloading(false);
+
     }
   }, []);
   useEffect(() => {
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
         swal("Error", "Wajib Input Alamat", "error");
         setloadingCheckOut(false);
       } else {
-        const url = `http://localhost:4000/api/orders`;
+        const url = `${process.env.REACT_APP_SERVER_API}/api/orders`;
         await axios.post(
           url,
           { delivery_fee: deliveryFee, delivery_address: alamatform },

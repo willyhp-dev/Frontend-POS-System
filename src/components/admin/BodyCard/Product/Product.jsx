@@ -62,7 +62,7 @@ export default function ProductPage() {
       }
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products?q=${value}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products?q=${value}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -92,7 +92,7 @@ export default function ProductPage() {
         try {
           setloading(true);
           const currentUser = JSON.parse(localStorage.getItem("user"));
-          const url = `http://localhost:4000/api/products/delete/${id}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/products/delete/${id}`;
           await axios
             .delete(url, {
               headers: {
@@ -115,7 +115,7 @@ export default function ProductPage() {
   const AxiosPublic = async (id) => {
     try {
       setloading(true);
-      const url = `http://localhost:4000/api/products/public/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/public/${id}`;
       const currentUser = JSON.parse(localStorage.getItem("user"));
       await axios
         .patch(
@@ -173,7 +173,7 @@ export default function ProductPage() {
           <td>{item.description}</td>
           <td>
             <img
-              src={`http://localhost:4000/images/products/${item.image_url}`}
+              src={`${process.env.REACT_APP_SERVER_API}/images/products/${item.image_url}`}
               width="100px"
               height="100px"
               alt=""

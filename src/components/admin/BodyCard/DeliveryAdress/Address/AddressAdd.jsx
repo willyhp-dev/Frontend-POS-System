@@ -27,7 +27,7 @@ export default function AddressAdd() {
     try {
       const currentUser = JSON.parse(localStorage.getItem("user"));
       setloading(true);
-      const url = `http://localhost:4000/api/address`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/address`;
       await axios.post(
         url,
         {

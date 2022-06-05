@@ -14,7 +14,7 @@ export default function PageLogin() {
     e.preventDefault();
     setloading(true);
 
-    let url = "http://localhost:4000/api/auth/login";
+    let url = `${process.env.REACT_APP_SERVER_API}/api/auth/login`;
     axios
       .post(url, {
         email: email,

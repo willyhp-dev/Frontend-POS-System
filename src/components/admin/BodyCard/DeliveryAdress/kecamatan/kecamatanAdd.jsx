@@ -24,7 +24,7 @@ export default function KecamatanAdd() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/kecamatan/store`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kecamatan/store`;
       await axios.post(
         url,
         { name: name },

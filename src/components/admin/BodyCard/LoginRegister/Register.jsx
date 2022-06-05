@@ -9,42 +9,19 @@ export default function RegisterPage() {
   const [password, setpassword] = useState();
   const [loading, setloading] = useState(false);
   const navigate = useNavigate();
-  const loginform = async (e) => {
-    e.preventDefault();
-    setloading(true);
 
-    let url = "http://localhost:4000/api/auth/login";
-    axios
-      .post(url, {
-        email: email,
-        password: password,
-      })
-      .then((result) => {
-        if (result.data.token) {
-          localStorage.setItem("user", JSON.stringify(result.data));
-        }
-    
-        navigate("/");
-        return result.data;
-      })
-      .catch((error) => {
-        setloading(false);
-        swal("ERROR", "Anda Gagal Login Akun", "error");
-        console.log(error);
-      });
-  };
 
   const RegisterForm = async (e) => {
     e.preventDefault();
     setloading(true);
     try {
-      let url = "http://localhost:4000/api/auth/register";
+      let url = `${process.env.REACT_APP_SERVER_API}/api/auth/register`;
       await axios.post(url, {
         full_name: full_name,
         email: email,
         password: password,
       });
-      let urls = "http://localhost:4000/api/auth/login";
+      let urls = `${process.env.REACT_APP_SERVER_API}/api/auth/login`;
       await axios
         .post(urls, {
           email: email,

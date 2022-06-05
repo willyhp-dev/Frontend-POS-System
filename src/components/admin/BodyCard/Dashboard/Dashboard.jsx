@@ -20,11 +20,12 @@ export default function DashboardPage() {
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   
+ 
   const AxiosProduct = useCallback(async () => {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -42,11 +43,13 @@ export default function DashboardPage() {
     AxiosProduct();
   }, [AxiosProduct]);
 
+ 
+
   const AxiosTag = useCallback(async () => {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/tag`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/tag`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -68,7 +71,7 @@ export default function DashboardPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/category`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/category`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -90,7 +93,7 @@ export default function DashboardPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/auth/user`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/auth/user`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -112,7 +115,7 @@ export default function DashboardPage() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/orders`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/orders`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,

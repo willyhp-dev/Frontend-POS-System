@@ -22,7 +22,7 @@ export default function KelurahanEdit() {
   const AxiosDetail = useCallback(async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/kelurahan/detail/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kelurahan/detail/${id}`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -42,7 +42,7 @@ export default function KelurahanEdit() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/kelurahan/update/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/kelurahan/update/${id}`;
       await axios.patch(
         url,
         { name: name },

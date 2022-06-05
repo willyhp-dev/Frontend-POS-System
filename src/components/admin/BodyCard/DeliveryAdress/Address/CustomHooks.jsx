@@ -180,7 +180,7 @@ const Tbody = () => {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/address`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/address`;
       let response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
@@ -209,7 +209,7 @@ const Tbody = () => {
         try {
           setloading(true);
           const currentUser = JSON.parse(localStorage.getItem("user"));
-          const url = `http://localhost:4000/api/address/delete/${id}`;
+          const url = `${process.env.REACT_APP_SERVER_API}/api/address/delete/${id}`;
           await axios
             .delete(url, {
               headers: {

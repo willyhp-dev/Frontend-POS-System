@@ -15,7 +15,7 @@ export default function CategoryProduct() {
 
   const AxiosData = useCallback(async () => {
     try {
-      const url = `http://localhost:4000/api/category`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/category`;
       const currentUser = JSON.parse(localStorage.getItem("user"));
       let response = await axios.get(url, {
         headers: {
@@ -37,7 +37,7 @@ export default function CategoryProduct() {
     try {
       setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
-      const url = `http://localhost:4000/api/products/category/${id}`;
+      const url = `${process.env.REACT_APP_SERVER_API}/api/products/category/${id}`;
       await axios.patch(url,{category:inputcategory}, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
