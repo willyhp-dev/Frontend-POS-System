@@ -167,7 +167,7 @@ export default function DashboardPage() {
 
   return (
     <Card className="mt-3">
-      <Card.Header>DASHBOARD</Card.Header>
+      <Card.Header>{ currentUser.user.role}</Card.Header>
       <Card.Body>
         <Row className=" mr-2">
           {loading ?(

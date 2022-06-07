@@ -78,7 +78,7 @@ export default function CheckoutPage() {
           },
         });
         console.log(response.data);
-        setalamatdetail(response.data.data);
+        setalamatdetail(response.data);
       } else {
         setShow(true);
       }

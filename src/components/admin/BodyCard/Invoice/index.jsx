@@ -46,7 +46,7 @@ export default function InvoicePage() {
 
   let total = 0;
   Invoice.forEach((items, index) => {
-    const hasil = items.order_items[index].price * items.order_items[index].qty;
+    const hasil = items.order_items.price * items.order_items.qty;
     total += hasil;
   });
 
