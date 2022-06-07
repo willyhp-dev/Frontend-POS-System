@@ -48,7 +48,7 @@ export default function CartPage() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosData = useCallback(async () => {
     try {
-      setloading(true);
+      // setloading(true);
       const currentUser = JSON.parse(localStorage.getItem("user"));
       const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
@@ -114,7 +114,7 @@ export default function CartPage() {
       if (param1 === "INC") {
          hasil = qty + 1;
       }
-      setloading(true);
+      // setloading(true);
       const url = `${process.env.REACT_APP_SERVER_API}/api/carts/updateqty/${id}`;
       await axios.patch(url,{qty:hasil}, {
         headers: {
@@ -162,8 +162,8 @@ export default function CartPage() {
         ) : currentItem.length === 0 ? (
           <tr>
             <td colSpan={6}>
-              <div className="alert alert-danger">
-                <center>Data Empty / Data Not Response</center>
+              <div >
+                <center></center>
               </div>
             </td>
           </tr>

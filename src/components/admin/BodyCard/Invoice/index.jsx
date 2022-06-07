@@ -165,7 +165,7 @@ export default function InvoicePage() {
 
             <Modal show={show} animation={false} size="lg" onHide={!show}>
               <Modal.Header closeButton>
-                <Modal.Title>Order Detail</Modal.Title>
+                <Modal.Title>Invoice Detail</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Row>
@@ -270,7 +270,7 @@ export default function InvoicePage() {
                   onChange={(e) => AxiosInvoice(e.target.value)}
                 >
                   <option value ="">---Search Status Order---</option>
-                  <option>waiting payment</option>
+                  <option>waiting_payment</option>
                   <option>processing</option>
                   <option>in delivery</option>
                   <option>delivered</option>
