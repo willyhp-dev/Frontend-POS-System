@@ -12,7 +12,6 @@ import swal from "sweetalert";
 import "./index.css";
 
 export default function CheckoutPage() {
-
   const [loadingDetail, setloadingDetail] = useState(false);
   const [loadingCheckOut, setloadingCheckOut] = useState(false);
   const [alamat, setalamat] = useState([]);
@@ -23,7 +22,6 @@ export default function CheckoutPage() {
   const deliveryFee = 20000;
   const Navigate = useNavigate();
 
-
   let total = 0;
 
   cart.forEach((element) => {
@@ -32,12 +30,9 @@ export default function CheckoutPage() {
   });
   let allTotal = total + deliveryFee;
 
-
-
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
     try {
-     
       const currentUser = JSON.parse(localStorage.getItem("user"));
       const url = `${process.env.REACT_APP_SERVER_API}/api/address`;
       let response = await axios.get(url, {
@@ -46,10 +41,8 @@ export default function CheckoutPage() {
         },
       });
       setalamat(response.data.data);
-    
     } catch (error) {
       swal("Error", error.message, "error");
-
     }
   }, []);
   useEffect(() => {
@@ -77,16 +70,15 @@ export default function CheckoutPage() {
     try {
       if (id !== undefined) {
         setShow(true);
-        
+
         const url = `${process.env.REACT_APP_SERVER_API}/api/address/${id}`;
         let response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${currentUser.token}`,
           },
         });
-        console.log(response.data)
+        console.log(response.data);
         setalamatdetail(response.data.data);
-       
       } else {
         setShow(true);
       }
@@ -159,7 +151,6 @@ export default function CheckoutPage() {
 
   const AxiosCart = useCallback(async () => {
     try {
-  
       const currentUser = JSON.parse(localStorage.getItem("user"));
       const url = `${process.env.REACT_APP_SERVER_API}/api/carts`;
       let response = await axios.get(url, {
@@ -168,11 +159,8 @@ export default function CheckoutPage() {
         },
       });
       setcart(response.data.data);
-
-
     } catch (error) {
       swal("Error", error.message, "error");
-
     }
   }, []);
   useEffect(() => {
@@ -236,7 +224,11 @@ export default function CheckoutPage() {
         const url = `${process.env.REACT_APP_SERVER_API}/api/orders`;
         await axios.post(
           url,
-          { delivery_fee: deliveryFee, delivery_address: alamatform,total:allTotal },
+          {
+            delivery_fee: deliveryFee,
+            delivery_address: alamatform,
+            total: allTotal,
+          },
           {
             headers: {
               Authorization: `Bearer ${currentUser.token}`,
@@ -311,7 +303,7 @@ export default function CheckoutPage() {
             </Button>
           </Link>
           {loadingCheckOut ? (
-            <Button className="btn btn-secondary" disabled>
+            <Button className="btn btn-secondary float-right" disabled>
               <Spinner
                 as="span"
                 animation="grow"
