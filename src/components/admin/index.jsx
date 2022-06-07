@@ -97,6 +97,14 @@ export default function AdminPage() {
                   <Modal.Body>
                     <PageLogin />
                   </Modal.Body>
+                  <Modal.Footer>
+                    <p><b>Role Admin</b></p>
+                    <p>email : admin@gmail.com</p>
+                    <p>password : pontianak1</p>
+                    <p><b>Role User</b></p>
+                    <p>email : limwilly0@gmail.com</p>
+                    <p>password: pontianak1</p>
+                  </Modal.Footer>
                 </Modal>
                 <Button
                   variant="primary"
