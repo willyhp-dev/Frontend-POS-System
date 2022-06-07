@@ -84,8 +84,8 @@ export default function CheckoutPage() {
             Authorization: `Bearer ${currentUser.token}`,
           },
         });
-        
-        setalamatdetail(response.data);
+        console.log(response.data)
+        setalamatdetail(response.data.data);
        
       } else {
         setShow(true);
