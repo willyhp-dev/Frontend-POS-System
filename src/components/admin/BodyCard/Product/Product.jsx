@@ -104,8 +104,7 @@ export default function ProductPage() {
           swal("Success", "Congrate Deleted Product Data", "success");
         } catch (error) {
           setloading(false);
-          swal("Error", error.message, "error");
-        }
+          swal("Error", error.message, "error");        }
       } else {
         swal("Your Data is safe!");
       }

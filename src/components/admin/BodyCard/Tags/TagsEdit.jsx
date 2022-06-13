@@ -18,7 +18,7 @@ export default function TagEdit() {
   const [name, setname] = useState("");
   const [loading, setloading] = useState(false);
   const { id } = useParams();
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
   const AxiosDetail = useCallback(async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem("user"));
