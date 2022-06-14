@@ -47,14 +47,11 @@ export default function RouterPage() {
          
           <Route path="/login" element={<PageLogin />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/" element={<MenuPage />} />
         </Routes>
       ) : currentUser.user.role === "user" ? (
         <Routes>
-          <Route path="/" element={<DashboardPage />}>
-            Dashboard
-          </Route>
-          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/" element={<MenuPage />} />
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
@@ -83,7 +80,6 @@ export default function RouterPage() {
           <Route path="/address/detail/:id" element={<AddressDetail />} />
           <Route path="/address/kabupaten" element={<KabupatenPage />} />
           <Route path="/address/kabupaten/store" element={<KabupatenAdd />} />
-          <Route path="/menu" element={<MenuPage />} />
           <Route path="/Invoice" element={<InvoicePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

@@ -74,7 +74,11 @@ export default function AdminPage() {
   };
   const NavbarPages = () => {
     return (
-      <Navbar className="shadow margin-settings" bg="primary" variant="secondary">
+      <Navbar
+        className="shadow margin-settings"
+        bg="primary"
+        variant="secondary"
+      >
         <Container>
           <Button className="btn btn-primary" onClick={() => setOpen(!open)}>
             <FontAwesomeIcon icon={faBars} />
@@ -98,10 +102,14 @@ export default function AdminPage() {
                     <PageLogin />
                   </Modal.Body>
                   <Modal.Footer>
-                    <p><b>Role Admin</b></p>
+                    <p>
+                      <b>Role Admin</b>
+                    </p>
                     <p>email : admin@gmail.com</p>
                     <p>password : pontianak1</p>
-                    <p><b>Role User</b></p>
+                    <p>
+                      <b>Role User</b>
+                    </p>
                     <p>email : limwilly0@gmail.com</p>
                     <p>password: pontianak1</p>
                   </Modal.Footer>

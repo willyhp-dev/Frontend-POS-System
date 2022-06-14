@@ -12,7 +12,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const SubBar = [
-  { index: 1, name: "Dashboard", icon: faDashboard, link: "/" },
   { index: 6, name: "Menu", icon: faBowlFood, link: "/menu" },
   { index: 7, name: "Invoice", icon: faFileInvoice, link: "/Invoice" },
 ];
@@ -25,7 +24,6 @@ const subBarAdmin = [
   { index: 3, name: "Tag", icon: faTags, link: "/tag" },
   { index: 4, name: "Category", icon: faShop, link: "/category" },
   { index: 5, name: "DeliveryAddress", icon: faAddressBook, link: "/address" },
-  { index: 6, name: "Menu", icon: faBowlFood, link: "/menu" },
   { index: 7, name: "Invoice", icon: faFileInvoice, link: "/Invoice" },
 ]
 
