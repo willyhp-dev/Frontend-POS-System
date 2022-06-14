@@ -102,7 +102,7 @@ export default function MenuPage() {
 
   const AxiosCartUpdate = async (id) => {
     try {
-      setloadingcart(true);
+      // setloadingcart(true);
       const url = `${process.env.REACT_APP_SERVER_API}/api/updates/carts`;
       await axios
         .patch(
