@@ -44,12 +44,7 @@ export default function InvoicePage() {
     </li>
   ));
 
-  let total = 0;
-  Invoice.forEach((items, index) => {
-    const hasil = items.order_items.price * items.order_items.qty;
-    total += hasil;
-  });
-
+ 
   const AxiosInvoice = useCallback(async (value) => {
     try {
       if (value === undefined) {
