@@ -135,8 +135,9 @@ export default function ProductAdd() {
                     Description
                   </Form.Label>
                   <Col sm="10">
-                    <Form.Control
+                    <textarea
                       type="text"
+                      className="form-control h-100"
                       onChange={(e) => setdescription(e.target.value)}
                       value={description}
                       name="description"

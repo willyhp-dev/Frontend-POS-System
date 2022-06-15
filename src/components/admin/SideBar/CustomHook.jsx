@@ -12,7 +12,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const SubBar = [
-  { index: 6, name: "Menu", icon: faBowlFood, link: "/menu" },
+  { index: 6, name: "Menu", icon: faBowlFood, link: "/" },
   { index: 7, name: "Invoice", icon: faFileInvoice, link: "/Invoice" },
 ];
 const SubQuestBar = [

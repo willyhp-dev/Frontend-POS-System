@@ -79,75 +79,148 @@ export default function AdminPage() {
         bg="primary"
         variant="secondary"
       >
-        <Container>
-          <Button className="btn btn-primary" onClick={() => setOpen(!open)}>
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
-          <Navbar.Brand>
-            {currentUser === null ? (
-              <div>
-                <Button
-                  variant="primary"
-                  className="btn btn-sm"
-                  onClick={handleShow}
-                >
-                  <FontAwesomeIcon icon={faUser} /> Login
-                </Button>
+        {open ? (
+          <Container>
+            <Button className="btn btn-primary" onClick={() => setOpen(!open)}>
+              <FontAwesomeIcon icon={faBars} />
+            </Button>
+            <Navbar.Brand>
+              {currentUser === null ? (
+                <div>
+                  <Button
+                    variant="primary"
+                    className="btn btn-sm"
+                    onClick={handleShow}
+                  >
+                    <FontAwesomeIcon icon={faUser} /> Login
+                  </Button>
 
-                <Modal show={show} onHide={handleClose} animation={false}>
-                  <Modal.Header>
-                    <Modal.Title>Login Page</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <PageLogin />
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <p>
-                      <b>Role Admin</b>
-                    </p>
-                    <p>email : admin@gmail.com</p>
-                    <p>password : pontianak1</p>
-                    <p>
-                      <b>Role User</b>
-                    </p>
-                    <p>email : limwilly0@gmail.com</p>
-                    <p>password: pontianak1</p>
-                  </Modal.Footer>
-                </Modal>
-                <Button
-                  variant="primary"
-                  className="btn btn-sm ml-2"
-                  onClick={handleShows}
-                >
-                  <FontAwesomeIcon icon={faUser} /> Register
+                  <Modal show={show} onHide={handleClose} animation={false}>
+                    <Modal.Header>
+                      <Modal.Title>Login Page</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <PageLogin />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <p>
+                        <b>Role Admin</b>
+                      </p>
+                      <p>email : admin@gmail.com</p>
+                      <p>password : pontianak1</p>
+                      <p>
+                        <b>Role User</b>
+                      </p>
+                      <p>email : limwilly0@gmail.com</p>
+                      <p>password: pontianak1</p>
+                    </Modal.Footer>
+                  </Modal>
+                  <Button
+                    variant="primary"
+                    className="btn btn-sm ml-2"
+                    onClick={handleShows}
+                  >
+                    <FontAwesomeIcon icon={faUser} /> Register
+                  </Button>
+                  <Modal show={showR} onHide={handleCloses} animation={false}>
+                    <Modal.Header>
+                      <Modal.Title>Register Form</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <RegisterPage />
+                    </Modal.Body>
+                  </Modal>
+                </div>
+              ) : loading ? (
+                <Button className="btn btn-danger btn-sm" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
                 </Button>
-                <Modal show={showR} onHide={handleCloses} animation={false}>
-                  <Modal.Header>
-                    <Modal.Title>Register Form</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <RegisterPage />
-                  </Modal.Body>
-                </Modal>
-              </div>
-            ) : loading ? (
-              <Button className="btn btn-danger btn-sm" disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                Loading...
-              </Button>
-            ) : (
-              <Button className="btn btn-danger btn-sm" onClick={Logout}>
-                <FontAwesomeIcon icon={faPowerOff} /> LOGOUT
-              </Button>
-            )}
-          </Navbar.Brand>
-        </Container>
+              ) : (
+                <Button className="btn btn-danger btn-sm" onClick={Logout}>
+                  <FontAwesomeIcon icon={faPowerOff} /> LOGOUT
+                </Button>
+              )}
+            </Navbar.Brand>
+          </Container>
+        ) : (
+          <>
+            {" "}
+            <Button className="btn btn-primary" onClick={() => setOpen(!open)}>
+              <FontAwesomeIcon icon={faBars} />
+            </Button>
+            <Navbar.Brand>
+              {currentUser === null ? (
+                <div>
+                  <Button
+                    variant="primary"
+                    className="btn btn-sm"
+                    onClick={handleShow}
+                  >
+                    <FontAwesomeIcon icon={faUser} /> Login
+                  </Button>
+
+                  <Modal show={show} onHide={handleClose} animation={false}>
+                    <Modal.Header>
+                      <Modal.Title>Login Page</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <PageLogin />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <p>
+                        <b>Role Admin</b>
+                      </p>
+                      <p>email : admin@gmail.com</p>
+                      <p>password : pontianak1</p>
+                      <p>
+                        <b>Role User</b>
+                      </p>
+                      <p>email : limwilly0@gmail.com</p>
+                      <p>password: pontianak1</p>
+                    </Modal.Footer>
+                  </Modal>
+                  <Button
+                    variant="primary"
+                    className="btn btn-sm ml-2"
+                    onClick={handleShows}
+                  >
+                    <FontAwesomeIcon icon={faUser} /> Register
+                  </Button>
+                  <Modal show={showR} onHide={handleCloses} animation={false}>
+                    <Modal.Header>
+                      <Modal.Title>Register Form</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <RegisterPage />
+                    </Modal.Body>
+                  </Modal>
+                </div>
+              ) : loading ? (
+                <Button className="btn btn-danger btn-sm" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
+                </Button>
+              ) : (
+                <Button className="btn btn-danger btn-sm" onClick={Logout}>
+                  <FontAwesomeIcon icon={faPowerOff} /> LOGOUT
+                </Button>
+              )}
+            </Navbar.Brand>
+          </>
+        )}
       </Navbar>
     );
   };

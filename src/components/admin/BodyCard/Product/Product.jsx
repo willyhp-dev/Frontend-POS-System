@@ -195,19 +195,7 @@ export default function ProductPage() {
                 <FontAwesomeIcon icon={faEye} /> 
               </Button>
             </Link>
-            {item.public === "Not Public" ? (
-              <Button
-                className="btn btn-danger btn-sm mt-1"
-                onClick={() => AxiosPublic(item._id)}
-              >
-                <FontAwesomeIcon icon={faToggleOff} />
-              </Button>
-            ) : (
-              
-              <Button className="btn btn-primary btn-sm mt-1">
-                <FontAwesomeIcon icon={faToggleOn} />
-              </Button>
-            )}
+          
             <Link to={`/product/tag/${item._id}`}>
               <Button className="btn btn-secondary btn-sm mt-1">
                 <FontAwesomeIcon icon={faTags} />

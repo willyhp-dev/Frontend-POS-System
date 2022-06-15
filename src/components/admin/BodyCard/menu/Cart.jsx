@@ -107,7 +107,7 @@ export default function CartPage() {
   const AxiosQty = async (param1, id, qty, price) => {
     try {
       
-      let hasil = 0;
+      let hasil = 1;
       if (param1 === "DEC") {
          hasil = qty - 1;
       }
