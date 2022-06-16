@@ -4,8 +4,7 @@ import {
   faPlus,
   faShop,
   faTags,
-  faToggleOff,
-  faToggleOn,
+ 
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -111,29 +110,29 @@ export default function ProductPage() {
     });
   };
 
-  const AxiosPublic = async (id) => {
-    try {
-      setloading(true);
-      const url = `${process.env.REACT_APP_SERVER_API}/api/products/public/${id}`;
-      const currentUser = JSON.parse(localStorage.getItem("user"));
-      await axios
-        .patch(
-          url,
-          { public: "" },
-          {
-            headers: {
-              Authorization: `Bearer ${currentUser.token}`,
-            },
-          }
-        )
-        .then(() => AxiosData());
-      setloading(false);
-      swal("Success", "Congrate Public Product Data", "success");
-    } catch (error) {
-      setloading(false);
-      swal("Error", error.message, "error");
-    }
-  };
+  // const AxiosPublic = async (id) => {
+  //   try {
+  //     setloading(true);
+  //     const url = `${process.env.REACT_APP_SERVER_API}/api/products/public/${id}`;
+  //     const currentUser = JSON.parse(localStorage.getItem("user"));
+  //     await axios
+  //       .patch(
+  //         url,
+  //         { public: "" },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${currentUser.token}`,
+  //           },
+  //         }
+  //       )
+  //       .then(() => AxiosData());
+  //     setloading(false);
+  //     swal("Success", "Congrate Public Product Data", "success");
+  //   } catch (error) {
+  //     setloading(false);
+  //     swal("Error", error.message, "error");
+  //   }
+  // };
 
   const Tbody = () => {
     return loading ? (
