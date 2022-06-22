@@ -28,8 +28,9 @@ export default function CheckoutPage() {
     const hasil = element.product.price * element.qty;
     total += hasil;
   });
-  let allTotal = total + deliveryFee;
 
+  let allTotal = total + deliveryFee;
+  
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const AxiosAddress = useCallback(async () => {
     try {
