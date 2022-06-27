@@ -223,7 +223,7 @@ export default function CartPage() {
           <ul className="float-right">{paginations}</ul>
         </Card.Body>
         <Card.Footer>
-          <Link to="/menu">
+          <Link to="/">
             <Button className="btn btn-secondary btn-sm">
               <FontAwesomeIcon icon={faBackspace} /> Back
             </Button>
