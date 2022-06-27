@@ -44,7 +44,6 @@ export default function InvoicePage() {
     </li>
   ));
 
- 
   const AxiosInvoice = useCallback(async (value) => {
     try {
       if (value === undefined) {
@@ -58,7 +57,7 @@ export default function InvoicePage() {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
-      console.log(response.data.data);
+
       setInvoice(response.data.data);
       setloading(false);
     } catch (error) {
@@ -142,15 +141,18 @@ export default function InvoicePage() {
         <tr>
           <td>{(index += 1)}</td>
           <td>{items.order_number}</td>
-          <td>{ items.items_count + items.delivery_fee}</td>
+          <td>{items.items_count + items.delivery_fee}</td>
           <td>{items.status}</td>
           <td width="15%">
-            <Button
-              onClick={() => ModalUpdate(items._id)}
-              className=" btn btn-sm btn-outline-warning btn-light ml-1"
-            >
-              <FontAwesomeIcon icon={faEdit} />
-            </Button>
+            {currentUser.user.role === "admin" && (
+              <Button
+                onClick={() => ModalUpdate(items._id)}
+                className=" btn btn-sm btn-outline-warning btn-light ml-1"
+              >
+                <FontAwesomeIcon icon={faEdit} />
+              </Button>
+            )}
+
             <Button
               onClick={() => setShow(true)}
               className="btn btn-sm btn-outline-secondary btn-light ml-1"
@@ -264,7 +266,7 @@ export default function InvoicePage() {
                   className="form-control"
                   onChange={(e) => AxiosInvoice(e.target.value)}
                 >
-                  <option value ="">---Search Status Order---</option>
+                  <option value="">---Search Status Order---</option>
                   <option>waiting_payment</option>
                   <option>processing</option>
                   <option>in delivery</option>
